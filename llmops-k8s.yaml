@@ -14,15 +14,18 @@ spec:
       labels:
         app: llmops
     spec:
+      imagePullSecrets:
+        - name: dockerhub-secret
+
       containers:
-      - name: llmops-container
-        image: llmops-app:latest  # Use local image
-        imagePullPolicy: IfNotPresent
-        ports:
-          - containerPort: 8501
-        envFrom:
-          - secretRef:
-              name: llmops-secrets 
+        - name: llmops-container
+          image: sajedul5/anime-recommender:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8501
+          envFrom:
+            - secretRef:
+                name: llmops-secrets
 
 ---
 apiVersion: v1
